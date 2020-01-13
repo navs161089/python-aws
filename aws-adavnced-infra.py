@@ -4,6 +4,18 @@ pyclec2 = boto3.client('ec2')
 inst_type = 't2.micro'
 img_id = 'ami-00068cd7555f543d5'
 
+#Create Key pair
+
+outfile = open('py-boto3.pem','w')
+
+# call the boto ec2 function to create a key pair
+key_pair = pyec2.create_key_pair(KeyName='py-boto3')
+
+# capture the key and store it in a file
+KeyPairOut = str(key_pair.key_material)
+print(KeyPairOut)
+outfile.write(KeyPairOut)
+
 #Create Custom VPC
 cust_vpc = pyec2.create_vpc(CidrBlock='10.0.0.0/16')
 cust_vpc.create_tags(Tags=[{"Key":"Name","Value":"py_custvpc"}])
